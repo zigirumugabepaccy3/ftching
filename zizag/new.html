@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Json placeholder with fetch API</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <button onclick="request()" class="btn success">Request Data</button>
+        
+        <button onclick="closeModal()" class="btn danger">Close Data</button>
+        <div id="result">
+            
+        </div>
+    </body>
+    <script>
+        function request(){
+            openModal();
+            fetch("https://jsonplaceholder.typicode.com/todos")
+            .then(function(response){
+                return response.json()
+            })
+            .then((response)=> {
+                var result = document.getElementById('result');
+                let html
+                response.forEach(element => {
+
+                    html+=`
+                    <div class="item">
+                       <p class="text"> <span class="title">Id:</span> ${element.id}</p>
+                       <p class="text"> <span class="title">Title:</span> ${element.title}</p>
+                       <p class="text"> <span class="title">Completed:</span> ${element.completed}</p>
+                       </div>
+                    `
+
+                });
+                result.innerHTML=html
+        
+            })
+        }
+function closeModal() {
+  let modal = document.getElementById('result');
+  modal.style.display = 'none';
+
+  // Simulated API call when closing the modal
+  simulateApiCall();
+}
+function openModal() {
+  let modal = document.getElementById('result');
+  modal.style.display = 'flex';
+
+}
+
+function simulateApiCall() {
+  // Simulated API call (replace with actual API call)
+  console.log('Making API call...');
+  // Here you would make an actual API call using fetch or AJAX.
+  // For demonstration purposes, we'll simulate a delay using setTimeout.
+  setTimeout(function() {
+    console.log('API call successful.');
+  }, 2000); // Simulate a 2-second delay
+}
+    </script>
+</html>
